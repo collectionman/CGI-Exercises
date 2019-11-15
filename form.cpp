@@ -9,7 +9,6 @@ URIMap generateURIMap(String uriString) ;
 void displayValuesForKeys(const URIMap& map) ;
 bool isContainedInAlpha(char ch) ;
 
-
 int main(int argc, char* argv[]) {
     String content = "" ;
 
@@ -41,6 +40,7 @@ int main(int argc, char* argv[]) {
     std::cout << "</form>\n" ;
 
     std::cin >> content ;
+    
     if (content != "") {
         URIMap uriMap = generateURIMap(content) ;
         std::cout << "<h2>Hello! your name is: " << uriMap["name"] << "</h2>\n";
@@ -70,15 +70,7 @@ URIMap generateURIMap(String uriString) {
         key = uriString.substr(0, position) ;
         uriString.erase(0, position + equal.length()) ;
         value = uriString.substr(0, uriString.find(ampersand)) ;
-        std::cout << value << '\n' ;
-        std::size_t index = 0 ;
-        while ((index = value.find(percentage)) != String::npos) {
-            String innerCode = value.substr(index, value.find(percentage, index + 1)) ;
-            value.erase(0, index + percentage.length()) ;
-            std::cout << innerCode << '\n' ;
-            if (urlCodes.find(innerCode) != urlCodes.end()) innerCode = urlCodes[innerCode] ;
-            std::cout << "Parsed: " << value.replace(index, value.find(percentage, index + 1), innerCode) << '\n' ;
-        } 
+        std::size_t index = 0 ; 
         uriString.erase(0, uriString.find(ampersand) + ampersand.length()) ;
         result[key] = value ;
     } 
